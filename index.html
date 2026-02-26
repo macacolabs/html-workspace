@@ -8,13 +8,29 @@
   <!-- CodeMirror CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+  
+  <!-- Confetti (축하 효과) Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
   <header>
-    <button id="menuOpenBtn" class="hamburger-btn">☰</button>
-    <h1>🎓 HTML 기초</h1>
+    <div class="header-left">
+      <button id="menuOpenBtn" class="hamburger-btn">☰</button>
+      <h1>🎓 HTML 기초</h1>
+    </div>
+    
+    <div class="header-right">
+      <label class="switch-label">
+        <span id="modeLabelTheory" class="active">📖 개념 학습</span>
+        <div class="switch">
+          <input type="checkbox" id="modeToggleBtn">
+          <span class="slider round"></span>
+        </div>
+        <span id="modeLabelPractice">💻 실습 미션</span>
+      </label>
+    </div>
   </header>
 
   <!-- 배경 오버레이 (사이드바 열렸을 때 뒷배경 어둡게) -->
@@ -44,7 +60,11 @@
     <section class="panel editor-panel">
       <div class="panel-header">
         <h2>📝 실습 에디터 (HTML)</h2>
-        <button id="copyCodeBtn" class="action-btn">📋 코드 복사</button>
+        <div class="editor-actions">
+          <button id="showAnswerBtn" class="action-btn warning-btn" style="display: none;">💡 정답 보기</button>
+          <button id="checkAnswerBtn" class="action-btn success-btn" style="display: none;">🚀 정답 확인</button>
+          <button id="copyCodeBtn" class="action-btn">📋 코드 복사</button>
+        </div>
       </div>
       <textarea id="htmlEditor"></textarea>
     </section>

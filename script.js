@@ -4,10 +4,13 @@ const htmlLectures = [
     category: "1. 글자 관련 태그",
     title: "1-1. 제목 태그 (Heading)",
     theory: `
-      <p>가장 기본이 되는 글자 표현 태그들을 실습합니다.</p>
-      <h3>제목 태그 (Heading)</h3>
+      <p>웹 문서의 제목이나 소제목을 나타낼 때 사용하는 태그입니다.</p>
+      
+      <h3>&lt;h1&gt; ~ &lt;h6&gt; 태그</h3>
       <ul>
-        <li><code>&lt;h1&gt; ~ &lt;h6&gt;</code>: 숫자가 작을수록 글자가 큽니다.</li>
+        <li><code>h1</code>부터 <code>h6</code>까지 있으며, 숫자가 커질수록 글자 크기가 작아집니다.</li>
+        <li>보통 <code>h1</code>은 페이지당 하나만 사용하여 대제목을 나타냅니다.</li>
+        <li>이 태그들은 한 줄을 모두 차지하는 <b>블록(Block) 요소</b> 특성을 가집니다.</li>
       </ul>
     `,
     initialCode: `<!DOCTYPE html>
@@ -17,18 +20,42 @@ const htmlLectures = [
     <title>1-1. 제목 태그</title>
 </head>
 <body>
-    <h1>h1 태그입니다.</h1>
+    <h1>h1 태그입니다. (가장 큼)</h1>
     <h2>h2 태그입니다.</h2>
     <h3>h3 태그입니다.</h3>
     <h4>h4 태그입니다.</h4>
     <h5>h5 태그입니다.</h5>
-    <h6>h6 태그입니다.</h6>
-    <h5>h5         태그입니다.</h5>
-    <h5>h5 &nbsp;&nbsp;&nbsp;태그입니다.</h5>
-    <h7>h7 태그입니다.</h7>
-    test <br> 2222
+    <h6>h6 태그입니다. (가장 작음)</h6>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 나만의 첫 웹 제목 만들기</h3>
+        <p>에디터에 있는 코드를 지우고 다음 조건에 맞게 코드를 작성해 보세요.</p>
+        <ul>
+          <li>1. 제일 큰 대제목(<code>h1</code>)으로 <b>'나의 첫 웹사이트'</b>라고 적어보세요.</li>
+          <li>2. 중간 크기의 소제목(<code>h3</code>)으로 <b>'웹 프로그래밍 입문'</b>이라고 적어보세요.</li>
+        </ul>
+        <p>완성 후 우측 상단의 <b>[정답 확인]</b> 버튼을 눌러보세요!</p>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>1-1. 제목 태그 정답</title>
+</head>
+<body>
+    <h1>나의 첫 웹사이트</h1>
+    <h3>웹 프로그래밍 입문</h3>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<h1>나의 첫 웹사이트</h1>') && code.includes('<h3>웹 프로그래밍 입문</h3>')) {
+        return { success: true, message: "완벽합니다! 다음 강의로 넘어가도 좋습니다." };
+      }
+      return { success: false, message: "태그나 텍스트에 오타가 없는지, h1과 h3를 정확히 사용했는지 다시 확인해 보세요!" };
+    }
   },
   {
     id: "html-01-2",
@@ -61,7 +88,34 @@ const htmlLectures = [
     태그로 지정해 주며 pre태그는 여러 칸 띄우기 혹은 줄 바꿈 등을 포함하여 내용 그대로 표현하는
     태그이다.</pre>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 자기소개 글 쓰기</h3>
+        <p>에디터 코드를 지우고, 다음 조건에 맞게 작성해 보세요.</p>
+        <ul>
+          <li>1. 본인의 이름을 <code>&lt;p&gt;</code> 태그로 감싸서 작성하세요. (예: &lt;p&gt;홍길동입니다.&lt;/p&gt;)</li>
+          <li>2. 이름 아래에 <code>&lt;br&gt;</code> 태그를 한 번 써서 줄을 바꾼 후 "반갑습니다" 라고 작성하세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>1-2. 문단 관련 태그 정답</title>
+</head>
+<body>
+    <p>홍길동입니다.</p>
+    <br>반갑습니다
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<p>') && code.includes('<br>')) {
+        return { success: true, message: "문단 태그와 줄바꿈 태그를 잘 쓰셨습니다!" };
+      }
+      return { success: false, message: "p 태그와 br 태그가 모두 사용되었는지 확인하세요!" };
+    }
   },
   {
     id: "html-01-3",
@@ -102,7 +156,34 @@ const htmlLectures = [
     <br>
     <blockquote cite="http://www.naver.com">인용 문구를 나타내는 태그</blockquote>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 중요 단어 강조하기</h3>
+        <p>에디터 코드를 지우고 아래 문장을 만든 뒤 특정 단어를 꾸며보세요.</p>
+        <ul>
+          <li>1. "이 문장은 매우 중요합니다" 라고 텍스트를 적으세요.</li>
+          <li>2. 그 중 "매우" 라는 단어 앞뒤에 태그를 감싸 굵게(<code>&lt;strong&gt;</code>) 만드세요.</li>
+          <li>3. "중요합니다" 라는 단어를 형광펜(<code>&lt;mark&gt;</code>) 칠해보세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>1-3. 꾸미기 태그 정답</title>
+</head>
+<body>
+    이 문장은 <strong>매우</strong> <mark>중요합니다</mark>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<strong>매우</strong>') && code.includes('<mark>중요합니다</mark>')) {
+        return { success: true, message: "훌륭합니다! 텍스트를 꾸미는 법을 완벽히 이해하셨네요." };
+      }
+      return { success: false, message: "'매우' 단어는 strong 태그로, '중요합니다' 단어는 mark 태그로 감싸주세요." };
+    }
   },
   {
     id: "html-01-4",
@@ -111,7 +192,9 @@ const htmlLectures = [
     theory: `
       <div class="mission-box">
         <h3>🎯 태그 중첩 훈련</h3>
-        <p>에디터의 코드처럼, <code>&lt;p&gt;</code> 태그 안에 <code>&lt;strong&gt;</code> 등 다양한 효과 태그를 겹쳐서 직접 사용해 보세요!</p>
+        <p>하나의 텍스트에 여러 가지 태그의 효과를 동시에 적용하고 싶다면 <b>태그를 중첩</b>해서 사용할 수 있습니다.</p>
+        <p>예시: <code>&lt;b&gt;&lt;i&gt;굵고 기울임&lt;/i&gt;&lt;/b&gt;</code></p>
+        <p>주의: 나중에 열린 태그가 먼저 닫혀야 합니다. (교차 금지)</p>
       </div>
     `,
     initialCode: `<!DOCTYPE html>
@@ -121,14 +204,39 @@ const htmlLectures = [
     <title>1-4. 글자 관련 태그 응용</title>
 </head>
 <body>
-    <h3>글자 관련 태그 응용</h3>
-    <p>태그들은 해당 태그 내에서 중첩으로 사용 가능하다.<br>
-        <strong>굵은</strong>글자를 사용할 수도 있고,
-        <em>기울이거나</em>, <s>취소선</s>을 넣는 등 다양하게
-        사용할 수 있다.
-    </p>
+    <h1>글자 관련 태그 응용</h1>
+    <p>태그들은 <b><i>중첩해서</i></b> <u>사용이</u> <s>가능합니다.</s></p>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 이중 태그 적용하기</h3>
+        <p>에디터 코드를 비운 뒤 아래 조건에 맞게 코딩해 보세요.</p>
+        <ul>
+          <li>1. 문단 태그 <code>&lt;p&gt;</code> 안에 "절대 포기하지 마세요!"라는 문장을 쓰세요.</li>
+          <li>2. "포기하지 마세요!" 부분만 <b>굵은 글씨(Strong)</b>로 만드세요.</li>
+          <li>3. 굵게 만든 부분에 <b>밑줄(U)</b>도 그어지게끔 태그를 하나 더 중첩해 보세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>1-4. 응용 정답</title>
+</head>
+<body>
+    <p>절대 <strong><u>포기하지 마세요!</u></strong></p>
+</body>
+</html>`,
+    validation: function(code) {
+      // 대소문자 무시, 공백 무시 등 유연한 검사
+      const stripped = code.replace(/\s+/g, '');
+      if (stripped.includes('<strong><u>포기하지마세요!</u></strong>') || stripped.includes('<u><strong>포기하지마세요!</strong></u>')) {
+        return { success: true, message: "태그 중첩 규칙(나중에 열린 게 먼저 닫힘)을 잘 지키셨네요!" };
+      }
+      return { success: false, message: "strong 태그와 u 태그가 중첩되어 '포기하지 마세요!'를 감싸고 있는지 다시 확인하세요." };
+    }
   },
   {
     id: "html-02-1",
@@ -167,7 +275,37 @@ const htmlLectures = [
         </li>
     </ul>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 장바구니 목록 만들기</h3>
+        <p>에디터 코드를 지우고 아래 아이템들을 "순서 없는 목록" 태그로 만들어 보세요.</p>
+        <ul>
+          <li>1. 전체를 감싸는 <code>&lt;ul&gt;</code> 태그를 작성하세요.</li>
+          <li>2. 그 안에 <code>&lt;li&gt;</code> 태그를 3개 만들어서 각각 '사과', '바나나', '포도'를 적으세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>2-1. 장바구니 정답</title>
+</head>
+<body>
+    <ul>
+        <li>사과</li>
+        <li>바나나</li>
+        <li>포도</li>
+    </ul>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<ul>') && code.includes('<li>사과</li>') && code.includes('<li>바나나</li>') && code.includes('<li>포도</li>')) {
+        return { success: true, message: "완벽합니다! ul 태그와 li 태그의 관계를 잘 이해하셨네요." };
+      }
+      return { success: false, message: "ul 태그 안에 li 태그 3개가 정확히 들어갔는지, 과일 이름에 오타가 없는지 확인하세요." };
+    }
   },
   {
     id: "html-02-2",
@@ -250,7 +388,40 @@ const htmlLectures = [
         <li>JQuery</li>
     </ol>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 좋아하는 영화 TOP 3</h3>
+        <p>에디터 코드를 지우고 "순서 있는 목록" 태그로 순위를 매겨 보세요.</p>
+        <ul>
+          <li>1. 전체를 감싸는 <code>&lt;ol&gt;</code> 태그를 작성하세요.</li>
+          <li>2. 그 안에 <code>&lt;li&gt;</code> 태그를 사용하여 영화 3가지를 1위부터 3위 순서대로 적어보세요. (예: 어벤져스, 아바타, 타이타닉)</li>
+          <li>3. <b>[도전]</b> 1번부터가 아니라 <b>5위부터(start="5")</b> 시작하도록 <code>&lt;ol&gt;</code> 태그의 속성을 바꿔보세요!</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>2-2. 순위 목록 정답</title>
+</head>
+<body>
+    <ol start="5">
+        <li>어벤져스</li>
+        <li>아바타</li>
+        <li>타이타닉</li>
+    </ol>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<ol start="5">') && (code.match(/<li>/g) || []).length >= 3) {
+        return { success: true, message: "start 속성까지 완벽하게 적용하셨습니다! 대단해요." };
+      } else if (code.includes('<ol>') && (code.match(/<li>/g) || []).length >= 3) {
+        return { success: true, message: "순서 있는 목록을 잘 작성하셨습니다! 다음에는 start 속성 변경에도 도전해 보세요." };
+      }
+      return { success: false, message: "ol 태그가 있는지, li 태그가 3개 이상 쓰였는지 점검해 보세요." };
+    }
   },
   {
     id: "html-02-3",
@@ -281,7 +452,38 @@ const htmlLectures = [
         <dd>목록 별로 설명에 필요한 행을 다르게 할 수도 있습니다.</dd>
     </dl>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 과일 사전 만들기</h3>
+        <p>사전처럼 과일 이름과 그 설명을 설명 목록(dl, dt, dd) 태그로 정리해 보세요.</p>
+        <ul>
+          <li>1. <code>&lt;dl&gt;</code> 태그로 전체를 감싸세요.</li>
+          <li>2. <code>&lt;dt&gt;</code> 용어 태그로 '사과' 를 적으세요.</li>
+          <li>3. <code>&lt;dd&gt;</code> 설명 태그로 '가을에 붉게 익는 달콤한 과일' 이라고 적으세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>2-3. 설명 목록 정답</title>
+</head>
+<body>
+    <dl>
+        <dt>사과</dt>
+        <dd>가을에 붉게 익는 달콤한 과일</dd>
+    </dl>
+</body>
+</html>`,
+    validation: function(code) {
+      const stripped = code.replace(/\s+/g, '');
+      if (stripped.includes('<dt>사과</dt>') && stripped.includes('<dd>가을에붉게익는달콤한과일</dd>')) {
+        return { success: true, message: "용어와 설명 태그를 완벽하게 짝지어 주셨습니다!" };
+      }
+      return { success: false, message: "dt 태그(사과)와 dd 태그(가을에 붉게 익는 달콤한 과일)를 정확히 사용했는지, 오타가 없는지 확인하세요." };
+    }
   },
   {
     id: "html-03-1",
@@ -357,7 +559,43 @@ const htmlLectures = [
         </tr>
     </table>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 나의 시간표 만들기</h3>
+        <p>에디터 코드를 지우고 2행 2열 짜리 간단한 시간표(표)를 만들어 보세요.</p>
+        <ul>
+          <li>1. 전체를 감싸는 <code>&lt;table border="1"&gt;</code> 태그를 작성하세요.</li>
+          <li>2. 첫 번째 줄(<code>&lt;tr&gt;</code>)에는 제목 셀(<code>&lt;th&gt;</code>) 2개를 사용해 각각 '월요일', '화요일' 이라고 적으세요.</li>
+          <li>3. 두 번째 줄(<code>&lt;tr&gt;</code>)에는 데이터 셀(<code>&lt;td&gt;</code>) 2개를 사용해 각각 '수학', '영어' 라고 적으세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>3-1. 시간표 정답</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>월요일</th>
+            <th>화요일</th>
+        </tr>
+        <tr>
+            <td>수학</td>
+            <td>영어</td>
+        </tr>
+    </table>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<th>월요일</th>') && code.includes('<th>화요일</th>') && code.includes('<td>수학</td>') && code.includes('<td>영어</td>')) {
+        return { success: true, message: "훌륭합니다! 테이블의 기본적인 행과 열, 제목과 데이터의 구분을 명확히 하셨습니다." };
+      }
+      return { success: false, message: "tr 태그 안에 th나 td 태그가 알맞게 들어갔는지, 텍스트에 오타가 없는지 확인해 보세요." };
+    }
   },
   {
     id: "html-03-2",
@@ -462,7 +700,34 @@ const htmlLectures = [
         width 100%를 차지하며 안쪽 데이터만큼의 높이를 가집니다.
     </div>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 블록 구역 나누기</h3>
+        <p>에디터의 모든 내용을 지우고 div 태그를 이용하여 두 개의 큰 구역을 나눠보세요.</p>
+        <ul>
+          <li>1. 상단 구역(<code>&lt;div&gt;</code>)에는 <b>'헤더 영역'</b>이라고 텍스트를 적으세요.</li>
+          <li>2. 그 바로 아래의 하단 구역(<code>&lt;div&gt;</code>)에는 <b>'본문 영역'</b>이라고 텍스트를 적으세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>4-1. div 태그 정답</title>
+</head>
+<body>
+    <div>헤더 영역</div>
+    <div>본문 영역</div>
+</body>
+</html>`,
+    validation: function(code) {
+      if ((code.match(/<div/g) || []).length >= 2 && code.includes('헤더 영역') && code.includes('본문 영역')) {
+        return { success: true, message: "div 태그를 2번 사용하여 화면을 상하로 훌륭하게 분할하셨습니다!" };
+      }
+      return { success: false, message: "화면에 div 태그가 2개 이상 쓰였는지, '헤더 영역'과 '본문 영역' 글자가 모두 있는지 점검하세요." };
+    }
   },
   {
     id: "html-04-2",
@@ -498,7 +763,35 @@ const htmlLectures = [
         inline 요소는 본인이 감싼 텍스트나 내용물의 크기만큼만 영역을 차지합니다.
     </span>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 특정 글자만 콕 찍어 꾸미기</h3>
+        <p>에디터 코드를 비우고 아래 지시사항을 따라해 보세요.</p>
+        <ul>
+          <li>1. "이 문장에서 코딩 단어만 중요해!" 라고 문장을 적으세요. (p 태그로 감싸도 좋습니다)</li>
+          <li>2. <b>코딩</b> 이라는 단어만 <code>&lt;span&gt;</code> 태그로 감싸세요.</li>
+          <li>3. span 태그 안에 인라인 스타일(<code>style="color: red;"</code>)을 줘서 <b>코딩</b> 단어를 빨간색으로 만들어 보세요!</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>4-2. span 태그 정답</title>
+</head>
+<body>
+    <p>이 문장에서 <span style="color: red;">코딩</span> 단어만 중요해!</p>
+</body>
+</html>`,
+    validation: function(code) {
+      const stripped = code.replace(/\s+/g, '').replace(/'/g, '"');
+      if (stripped.includes('<spanstyle="color:red;"') || stripped.includes('<spanstyle="color:red"')) {
+        return { success: true, message: "span 태그와 style 속성의 결합을 통해 완벽하게 특정 단어만 꾸미셨습니다!" };
+      }
+      return { success: false, message: "span 태그 안에 style=\"color: red;\" 속성이 쓰였는지 확인해 보세요. (띄어쓰기 주의!)" };
+    }
   },
   {
     id: "html-05-1",
@@ -555,7 +848,34 @@ const htmlLectures = [
     <img src="sample/image/flower1.PNG" alt="꽃1" width="15%" height="150px">
     <img src="sample/image/flower2.PNG" alt="꽃2" width="15%" height="150px">
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 내 강아지 사진 띄우기</h3>
+        <p>에디터 코드를 지우고 이미지 태그를 실습해 보세요.</p>
+        <ul>
+          <li>1. <code>&lt;img&gt;</code> 태그를 작성하세요.</li>
+          <li>2. <b>src</b> 속성 값으로 강아지 인터넷 사진 주소인 <code>https://placedog.net/300/300</code> 를 넣으세요.</li>
+          <li>3. <b>alt</b> 속성 값으로 <code>우리집 강아지</code> 라고 적어주세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>5-1. 기본 이미지 실습 정답</title>
+</head>
+<body>
+    <img src="https://placedog.net/300/300" alt="우리집 강아지">
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<img') && code.includes('src="https://placedog.net/300/300"') && code.includes('alt="우리집 강아지"')) {
+        return { success: true, message: "완벽합니다! 외부 이미지 주소와 대체 텍스트(alt) 속성을 잘 적용하셨습니다." };
+      }
+      return { success: false, message: "img 태그 안에 src 속성과 alt 속성이 정확한 값으로 들어갔는지 따옴표와 띄어쓰기를 확인하세요." };
+    }
   },
   {
     id: "html-05-2",
@@ -586,7 +906,36 @@ const htmlLectures = [
         <area shape="rect" coords="300, 0, 600, 500" href="http://www.google.com" target="_blank">
     </map>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 투명한 클릭 영역 만들기</h3>
+        <p>이미지 위에 특정 좌표별로 클릭 구역을 설정하는 맵 태그를 완성해 보세요.</p>
+        <ul>
+          <li>1. 전체를 감싸는 <code>&lt;map name="test"&gt;</code> 태그를 작성하세요.</li>
+          <li>2. 그 안에 <code>&lt;area&gt;</code> 태그를 작성하고, 속성으로 <code>shape="rect"</code>를 주세요.</li>
+          <li>3. 이동할 목적지로 <code>href="https://google.com"</code> 속성을 주세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>5-2. 맵 태그 실습 정답</title>
+</head>
+<body>
+    <map name="test">
+        <area shape="rect" href="https://google.com">
+    </map>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<map name="test">') && code.includes('shape="rect"') && code.includes('href="https://google.com"')) {
+        return { success: true, message: "훌륭합니다! map과 area 태그의 쓰임새를 잘 익히셨네요." };
+      }
+      return { success: false, message: "map 태그의 name 속성, area 태그의 shape와 href 속성을 빠짐없이 작성했는지 확인하세요." };
+    }
   },
   {
     id: "html-05-3",
@@ -615,8 +964,42 @@ const htmlLectures = [
     
     <img src="sample/image/tower1.PNG" width="600px" height="300px" alt="타워">
     <p>이쁜 사진이다. (일반 p 태그 사용)</p>
+    <figure>
+        <img src="sample/image/flower3.PNG" width="300px" height="200px">
+        <figcaption>예쁜 꽃 사진</figcaption>
+    </figure>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 폴라로이드 사진처럼 꾸미기</h3>
+        <p>에디터 코드를 지우고, 사진 아래에 예쁜 설명글이 붙는 형태로 코딩해 보세요.</p>
+        <ul>
+          <li>1. 전체를 감싸는 <code>&lt;figure&gt;</code> 태그를 만드세요.</li>
+          <li>2. 그 안에 사진(<code>&lt;img src=""&gt;</code>) 태그를 하나 넣어주세요.</li>
+          <li>3. 이미지 태그 바로 밑에 <code>&lt;figcaption&gt;내 첫 번째 폴라로이드&lt;/figcaption&gt;</code> 라고 캡션을 추가하세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>5-3. 시맨틱 태그 실습 정답</title>
+</head>
+<body>
+    <figure>
+        <img src="">
+        <figcaption>내 첫 번째 폴라로이드</figcaption>
+    </figure>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<figure>') && code.includes('<img') && code.includes('<figcaption>내 첫 번째 폴라로이드</figcaption>')) {
+        return { success: true, message: "완벽합니다! figure와 figcaption을 활용하면 이미지를 한 덩어리로 관리하기 정말 편해진답니다." };
+      }
+      return { success: false, message: "figure 태그 안에 img와 figcaption(정해진 문구) 태그가 들었는지 오타를 점검하세요!" };
+    }
   },
   {
     id: "html-06-1",
@@ -648,7 +1031,34 @@ const htmlLectures = [
     <h3>비디오 관련 태그</h3>
     <video src="sample/video/beach.mp4" controls></video>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 뮤직 플레이어 만들기</h3>
+        <p>에디터 코드를 비우고 오디오 태그를 사용하여 재생바를 띄워보세요.</p>
+        <ul>
+          <li>1. <code>&lt;audio&gt;</code> 태그를 작성하세요.</li>
+          <li>2. 재생할 파일의 경로로 <code>src="sample/audio/xmas.mp3"</code>를 주세요.</li>
+          <li>3. 화면에 재생바가 나타나도록 <code>controls</code> 속성을 추가하세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>6-1. 오디오 태그 실습 정답</title>
+</head>
+<body>
+    <audio src="sample/audio/xmas.mp3" controls></audio>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<audio') && code.includes('src="sample/audio/xmas.mp3"') && code.includes('controls')) {
+        return { success: true, message: "훌륭합니다! controls 속성을 적어야 사용자 눈에 재생 버튼이 보인다는 점을 기억하세요." };
+      }
+      return { success: false, message: "audio 태그 안에 src 곡 경로와 controls 속성을 모두 적었는지 확인하세요." };
+    }
   },
   {
     id: "html-07-1",
@@ -701,7 +1111,34 @@ const htmlLectures = [
         <img src="sample/image/flower3.PNG" width="150px" height="150px" alt="꽃이미지">
     </a>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 구글 새 창으로 띄우기</h3>
+        <p>글자를 클릭했을 때 다른 사이트로 이동하는 하이퍼링크를 만들어 보겠습니다.</p>
+        <ul>
+          <li>1. '구글로 이동' 이라는 텍스트를 적어주세요.</li>
+          <li>2. 해당 텍스트를 <code>&lt;a&gt;</code> 태그로 감싸고, <code>href="https://google.com"</code> 목적지를 주세요.</li>
+          <li>3. 클릭 시 새 창(새 탭)에서 열리도록 <code>target="_blank"</code> 속성을 추가하세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>7-1. 링크 태그 실습 정답</title>
+</head>
+<body>
+    <a href="https://google.com" target="_blank">구글로 이동</a>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<a') && code.includes('href="https://google.com"') && code.includes('target="_blank"') && code.includes('구글로 이동')) {
+        return { success: true, message: "완벽합니다! a 태그의 href와 target 속성을 자유자재로 다루시네요." };
+      }
+      return { success: false, message: "a 태그 안에 href 속성과 target 속성이 제대로 들어갔는지 꼭 점검해 보세요." };
+    }
   },
   {
     id: "html-07-2",
@@ -742,7 +1179,37 @@ const htmlLectures = [
 
     <a href="#menu">위쪽 메뉴로 돌아가기</a>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 최상단으로 이동하는 링크 버튼</h3>
+        <p>에디터 코드 맨 밑에 '위로 가기' 앵커 버튼을 만들어 보겠습니다.</p>
+        <ul>
+          <li>1. 먼저, 문서 맨 위에 있는 특정 태그나 여백에 <code>id="top"</code>이라는 식별자를 주세요.</li>
+          <li>2. 문서 맨 아래(빈 공간)에 <code>&lt;a&gt;</code> 태그를 만들고 <code>href="#top"</code> 이라고 적으세요.</li>
+          <li>3. 링크 텍스트로는 '맨 위로 조준!' 이라고 지어주세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>7-2. 앵커 실습 정답</title>
+</head>
+<body>
+    <br id="top">
+    <!-- 스크롤을 길게 만들어 테스트하기 위함 -->
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <a href="#top">맨 위로 조준!</a>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('id="top"') && code.includes('href="#top"') && code.includes('맨 위로 조준!')) {
+        return { success: true, message: "아주 잘하셨습니다! 한 페이지 안에서 id를 이용한 앵커 이동 기법입니다." };
+      }
+      return { success: false, message: "아무 태그 안에나 id=\"top\" 속성이 들어있고, a 태그 안에 href=\"#top\"이 잘 들어갔는지 점검하세요." };
+    }
   },
   {
     id: "html-08-1",
@@ -787,7 +1254,36 @@ const htmlLectures = [
         </fieldset>
     </form>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 구글 검색 연동 폼</h3>
+        <p>간단한 폼 태그 뼈대를 만들어 검색 기능을 연동해 볼까요?</p>
+        <ul>
+          <li>1. 전체를 감싸는 <code>&lt;form&gt;</code> 태그를 작성하세요.</li>
+          <li>2. 속성으로 <code>action="https://google.com/search"</code>, <code>method="get"</code>을 부여하세요. (구글 검색 엔진이 get 방식을 받습니다)</li>
+          <li>3. 내부에 아무 텍스트나 타입의 <code>&lt;input&gt;</code> 태그를 일단 하나 추가해 두세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>8-1. 폼 기본 구조 실습 정답</title>
+</head>
+<body>
+    <form action="https://google.com/search" method="get">
+        <input type="text">
+    </form>
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<form') && code.includes('action="https://google.com/search"') && code.includes('method="get"') && code.includes('<input')) {
+        return { success: true, message: "정확합니다! 서버로 데이터를 보낼 폼 뼈대가 완벽히 구성되었습니다." };
+      }
+      return { success: false, message: "form 태그 안에 action, method 속성이 조건대로 잘 적혀있는지 꼭 확인해 보세요." };
+    }
   },
   {
     id: "html-08-2",
@@ -826,7 +1322,35 @@ const htmlLectures = [
         <input type="reset" value="취소">
     </form>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 로그인 인풋 만들기</h3>
+        <p>에디터 코드를 지우고 로그인에 필요한 두 가지 입력 양식을 만들어 봅니다.</p>
+        <ul>
+          <li>1. '아이디' 용도로 <code>&lt;input type="text"&gt;</code> 를 만드세요.</li>
+          <li>2. 아무것도 안 적혀 있을 때 옅게 보이는 글씨인 <code>placeholder="아이디 입력"</code> 속성을 위 인풋에 넣어주세요.</li>
+          <li>3. 그 밑에 '비밀번호' 용도로, 타이핑하면 까만 점으로 가려지는 <code>type="password"</code> 입력 양식을 만드세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>8-2. 로그인 폼 정답</title>
+</head>
+<body>
+    <input type="text" placeholder="아이디 입력"><br>
+    <input type="password">
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('type="text"') && code.includes('placeholder="아이디 입력"') && code.includes('type="password"')) {
+        return { success: true, message: "훌륭합니다! text는 눈에 보이고 password는 눈에 안 보이는 텍스트 양식입니다." };
+      }
+      return { success: false, message: "type=\"text\"와 placeholder 속성, type=\"password\"가 정확히 들어갔는지 살펴보세요." };
+    }
   },
   {
     id: "html-08-3",
@@ -896,7 +1420,38 @@ const htmlLectures = [
         <button type="submit">최종 완료</button>
     </form>
 </body>
-</html>`
+</html>`,
+    practiceTheory: `
+      <div class="mission-box">
+        <h3>🚀 실습 미션: 여러가지 옵션 제공하기</h3>
+        <p>드롭다운 항목과 체크박스 형태의 추가 양식을 자유롭게 실습해 보세요.</p>
+        <ul>
+          <li>1. <code>&lt;select&gt;</code> 태그를 열고, 안에 <code>&lt;option&gt;</code> 태그 2개를 만듭니다. 값(텍스트)은 '치킨', '피자'로 하세요.</li>
+          <li>2. 그 아래에 <code>&lt;input type="checkbox"&gt;</code> 태그를 만들어서 '동의합니다'라는 텍스트와 함께 작성해 보세요.</li>
+        </ul>
+      </div>
+    `,
+    solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>8-3. 옵션 폼 정답</title>
+</head>
+<body>
+    <select>
+        <option>치킨</option>
+        <option>피자</option>
+    </select>
+    <br>
+    <input type="checkbox"> 동의합니다
+</body>
+</html>`,
+    validation: function(code) {
+      if (code.includes('<select') && code.includes('치킨') && code.includes('피자') && code.includes('type="checkbox"')) {
+        return { success: true, message: "완성입니다! 옵션 목록과 체크박스가 폼에서 어떻게 동작하는지 완벽히 숙지하셨습니다." };
+      }
+      return { success: false, message: "select 및 option 태그의 포함 유무, checkbox 태그 입력 유무를 확인하세요." };
+    }
   }
 ];
 
@@ -922,27 +1477,95 @@ function updatePreview() {
   previewDoc.close();
 }
 
-// 4. 특정 강의(데이터)를 화면에 로드하는 함수
+// 4. 전역 상태 및 특정 강의(데이터) 로드 함수
+let isPracticeMode = false;
+let currentLectureId = "html-01-1"; // 현재 강의 기억
+
 function loadLecture(lectureId) {
-  // 아이디로 강의 찾기
+  currentLectureId = lectureId;
   const lecture = htmlLectures.find(lec => lec.id === lectureId);
   if (!lecture) return;
 
-  // 1) 이론 설명 영역 업데이트
-  document.getElementById('theoryTitle').innerText = lecture.title;
-  document.getElementById('theoryContent').innerHTML = lecture.theory;
+  // 1) 이론/실습 영역 업데이트
+  document.getElementById('theoryTitle').innerText = isPracticeMode ? '미션 가이드' : '이론 설명';
+  if (isPracticeMode) {
+    document.getElementById('theoryContent').innerHTML = lecture.practiceTheory || '<p>현재 강의는 실습 미션이 아직 등록되지 않았습니다.</p>';
+    editor.setValue('<!DOCTYPE html>\n<html lang="ko">\n<head>\n    <meta charset="UTF-8">\n    <title>실습</title>\n</head>\n<body>\n    <!-- 여기에 코드를 작성하세요 -->\n    \n</body>\n</html>');
+  } else {
+    document.getElementById('theoryContent').innerHTML = lecture.theory;
+    editor.setValue(lecture.initialCode);
+  }
 
-  // 2) 에디터 초기 코드 설정
-  editor.setValue(lecture.initialCode);
-
-  // 3) 사이드바 활성화 (Active) UI 변경
-  const listItems = document.querySelectorAll('.lesson-list li');
+  // 2) 사이드바 활성화 (Active) UI 변경
+  const listItems = document.querySelectorAll('.lesson-list li.sub-item');
   listItems.forEach(li => li.classList.remove('active'));
-  document.getElementById('nav-' + lecture.id).classList.add('active');
+  const activeLi = document.getElementById('nav-' + lecture.id);
+  if(activeLi) activeLi.classList.add('active');
 
   // 변경 후 즉시 미리보기 렌더링
   updatePreview();
 }
+
+// 4-1. 모드 전환 (이론 <-> 실습) 이벤트
+const modeToggleBtn = document.getElementById('modeToggleBtn');
+const labelTheory = document.getElementById('modeLabelTheory');
+const labelPractice = document.getElementById('modeLabelPractice');
+const checkAnswerBtn = document.getElementById('checkAnswerBtn');
+const showAnswerBtn = document.getElementById('showAnswerBtn');
+
+modeToggleBtn.addEventListener('change', (e) => {
+  isPracticeMode = e.target.checked;
+  if (isPracticeMode) {
+    labelPractice.classList.add('active');
+    labelTheory.classList.remove('active');
+    checkAnswerBtn.style.display = 'inline-block';
+    showAnswerBtn.style.display = 'inline-block';
+  } else {
+    labelTheory.classList.add('active');
+    labelPractice.classList.remove('active');
+    checkAnswerBtn.style.display = 'none';
+    showAnswerBtn.style.display = 'none';
+  }
+  // 모드 변경 시 현재 열려있던 강의를 해당 모드로 다시 로드
+  loadLecture(currentLectureId);
+});
+
+// 4-2. 정답 보기 버튼 클릭 이벤트
+showAnswerBtn.addEventListener('click', () => {
+  const lecture = htmlLectures.find(lec => lec.id === currentLectureId);
+  if (!lecture || !lecture.solutionCode) {
+    alert("이 강의에는 아직 정답 코드가 등록되지 않았습니다.");
+    return;
+  }
+  if(confirm("정답 코드를 에디터에 불러오시겠습니까? 작성 중인 코드는 사라집니다.")) {
+    editor.setValue(lecture.solutionCode);
+  }
+});
+
+// 4-3. 정답 제출 버튼 클릭 이벤트
+checkAnswerBtn.addEventListener('click', () => {
+  const lecture = htmlLectures.find(lec => lec.id === currentLectureId);
+  if (!lecture || !lecture.validation) {
+    alert("이 강의에는 아직 채점 로직이 등록되지 않았습니다.");
+    return;
+  }
+  
+  const userCode = editor.getValue();
+  const result = lecture.validation(userCode);
+  
+  if (result.success) {
+    // 폭죽 이펙트
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+    // 약간의 딜레이 후 성공 메시지
+    setTimeout(() => alert("🎉 정답입니다!\n" + result.message), 300);
+  } else {
+    alert("오답입니다. ❌\n" + result.message);
+  }
+});
 
 // 5. 사이드바(목차) 렌더링 함수 (카테고리별 그룹화 및 아코디언 기능 적용)
 function renderSidebar() {
