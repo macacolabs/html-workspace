@@ -50,7 +50,14 @@
 
     <!-- 중앙-왼쪽: 이론 설명 영역 -->
     <section class="panel theory-panel">
-      <h2 id="theoryTitle">이론 설명</h2>
+      <div class="theory-header">
+        <h2 id="theoryTitle">이론 설명</h2>
+        <div id="missionNav" class="mission-nav" style="display: none;">
+          <button id="prevMissionBtn" class="nav-btn" disabled>&lt; 이전</button>
+          <span id="missionProgress">1 / 1</span>
+          <button id="nextMissionBtn" class="nav-btn">다음 &gt;</button>
+        </div>
+      </div>
       <div id="theoryContent" class="theory-content">
         <!-- JS로 동적 렌더링될 영역 -->
       </div>

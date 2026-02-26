@@ -124,6 +124,55 @@ input:checked + .slider:before {
   opacity: 0.8;
 }
 
+/* 추가기능: 다중 미션 내비게이션바 영역 */
+.theory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #34495e;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.theory-header h2 {
+  margin: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.mission-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: #34495e;
+  padding: 5px 15px;
+  border-radius: 20px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+  color: #f1c40f;
+}
+
+.nav-btn:disabled {
+  color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+#missionProgress {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #bdc3c7;
+}
 .primary-btn {
   background-color: #27ae60;
   color: white;

@@ -4,13 +4,12 @@ const htmlLectures = [
     category: "1. 글자 관련 태그",
     title: "1-1. 제목 태그 (Heading)",
     theory: `
-      <p>웹 문서의 제목이나 소제목을 나타낼 때 사용하는 태그입니다.</p>
-      
-      <h3>&lt;h1&gt; ~ &lt;h6&gt; 태그</h3>
+      <p>웹 문서의 제목이나 소제목을 나타낼 때 사용합니다.</p>
+      <h3>제목 태그 (Heading)</h3>
       <ul>
-        <li><code>h1</code>부터 <code>h6</code>까지 있으며, 숫자가 커질수록 글자 크기가 작아집니다.</li>
-        <li>보통 <code>h1</code>은 페이지당 하나만 사용하여 대제목을 나타냅니다.</li>
-        <li>이 태그들은 한 줄을 모두 차지하는 <b>블록(Block) 요소</b> 특성을 가집니다.</li>
+        <li><code>&lt;h1&gt;</code>부터 <code>&lt;h6&gt;</code>까지 사용 가능합니다.</li>
+        <li>숫자가 작을수록 폰트 크기가 큽니다. (h1이 가장 큼)</li>
+        <li>검색 엔진이 문서의 구조를 파악할 때 중요한 역할을 합니다. 보통 한 페이지에 <code>&lt;h1&gt;</code>은 한 번만 쓰는 것을 권장합니다.</li>
       </ul>
     `,
     initialCode: `<!DOCTYPE html>
@@ -20,42 +19,152 @@ const htmlLectures = [
     <title>1-1. 제목 태그</title>
 </head>
 <body>
-    <h1>h1 태그입니다. (가장 큼)</h1>
-    <h2>h2 태그입니다.</h2>
-    <h3>h3 태그입니다.</h3>
-    <h4>h4 태그입니다.</h4>
-    <h5>h5 태그입니다.</h5>
-    <h6>h6 태그입니다. (가장 작음)</h6>
+    <h1>h1태그입니다.</h1>
+    <h2>h2태그입니다.</h2>
+    <h3>h3태그입니다.</h3>
+    <h4>h4태그입니다.</h4>
+    <h5>h5태그입니다.</h5>
+    <h6>h6태그입니다.</h6>
 </body>
 </html>`,
-    practiceTheory: `
-      <div class="mission-box">
-        <h3>🚀 실습 미션: 나만의 첫 웹 제목 만들기</h3>
-        <p>에디터에 있는 코드를 지우고 다음 조건에 맞게 코드를 작성해 보세요.</p>
-        <ul>
-          <li>1. 제일 큰 대제목(<code>h1</code>)으로 <b>'나의 첫 웹사이트'</b>라고 적어보세요.</li>
-          <li>2. 중간 크기의 소제목(<code>h3</code>)으로 <b>'웹 프로그래밍 입문'</b>이라고 적어보세요.</li>
-        </ul>
-        <p>완성 후 우측 상단의 <b>[정답 확인]</b> 버튼을 눌러보세요!</p>
-      </div>
-    `,
-    solutionCode: `<!DOCTYPE html>
+    missions: [
+      {
+        practiceTheory: `
+          <div class="mission-box">
+            <h3>🚀 미션 1/5: 가장 큰 제목 만들기</h3>
+            <p>문서에 가장 크고 중요한 제목을 작성해 보세요.</p>
+            <ul>
+              <li><code>&lt;h1&gt;</code> 태그를 사용하여 "나의 첫 웹페이지" 라고 적어보세요.</li>
+            </ul>
+          </div>
+        `,
+        solutionCode: `<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>1-1. 제목 태그 정답</title>
+    <title>미션 1 정답</title>
 </head>
 <body>
-    <h1>나의 첫 웹사이트</h1>
-    <h3>웹 프로그래밍 입문</h3>
+    <h1>나의 첫 웹페이지</h1>
 </body>
 </html>`,
-    validation: function(code) {
-      if (code.includes('<h1>나의 첫 웹사이트</h1>') && code.includes('<h3>웹 프로그래밍 입문</h3>')) {
-        return { success: true, message: "완벽합니다! 다음 강의로 넘어가도 좋습니다." };
+        validation: function(code) {
+          if (code.includes('<h1>나의 첫 웹페이지</h1>')) return { success: true, message: "아주 좋습니다! 가장 큰 제목이 생겼네요." };
+          return { success: false, message: "<h1>나의 첫 웹페이지</h1> 형식으로 작성되어 있는지 확인하세요." };
+        }
+      },
+      {
+        practiceTheory: `
+          <div class="mission-box">
+            <h3>🚀 미션 2/5: 소제목 추가하기</h3>
+            <p>방금 만든 제목 밑에 조금 더 작은 소제목을 달아주세요.</p>
+            <ul>
+              <li><code>&lt;h1&gt;나의 첫 웹페이지&lt;/h1&gt;</code>를 유지하세요.</li>
+              <li>그 바로 밑에 <code>&lt;h2&gt;</code> 태그를 사용하여 "내가 좋아하는 것들" 이라고 적어보세요.</li>
+            </ul>
+          </div>
+        `,
+        solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>미션 2 정답</title>
+</head>
+<body>
+    <h1>나의 첫 웹페이지</h1>
+    <h2>내가 좋아하는 것들</h2>
+</body>
+</html>`,
+        validation: function(code) {
+          if (code.includes('<h1>나의 첫 웹페이지</h1>') && code.includes('<h2>내가 좋아하는 것들</h2>')) return { success: true, message: "훌륭합니다! h1과 h2의 쌍이 잘 어울리네요." };
+          return { success: false, message: "h1 태그와 h2 태그가 모두 정확한 텍스트로 적혔는지 점검하세요." };
+        }
+      },
+      {
+        practiceTheory: `
+          <div class="mission-box">
+            <h3>🚀 미션 3/5: 세 번째 단락 제목</h3>
+            <p>h3 태그도 마저 사용해 보겠습니다.</p>
+            <ul>
+              <li>기존 코드를 유지하고, 그 아래에 <code>&lt;h3&gt;</code> 태그로 "과일" 이라고 적어주세요.</li>
+            </ul>
+          </div>
+        `,
+        solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>미션 3 정답</title>
+</head>
+<body>
+    <h1>나의 첫 웹페이지</h1>
+    <h2>내가 좋아하는 것들</h2>
+    <h3>과일</h3>
+</body>
+</html>`,
+        validation: function(code) {
+          if (code.includes('<h3>과일</h3>')) return { success: true, message: "딩동댕! h3까지 잘 작성하셨습니다." };
+          return { success: false, message: "코드 어딘가에 <h3>과일</h3> 문구가 들어있어야 합니다." };
+        }
+      },
+      {
+        practiceTheory: `
+          <div class="mission-box">
+            <h3>🚀 미션 4/5: h4 ~ h6 태그</h3>
+            <p>더 작은 제목들도 한 번씩 만들어봅시다.</p>
+            <ul>
+              <li>에디터를 모두 지우고 새롭게 작성합니다.</li>
+              <li><code>&lt;h4&gt;사과&lt;/h4&gt;</code></li>
+              <li><code>&lt;h5&gt;바나나&lt;/h5&gt;</code></li>
+              <li><code>&lt;h6&gt;딸기&lt;/h6&gt;</code></li>
+            </ul>
+          </div>
+        `,
+        solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>미션 4 정답</title>
+</head>
+<body>
+    <h4>사과</h4>
+    <h5>바나나</h5>
+    <h6>딸기</h6>
+</body>
+</html>`,
+        validation: function(code) {
+          if (code.includes('<h4>사과</h4>') && code.includes('<h5>바나나</h5>') && code.includes('<h6>딸기</h6>')) return { success: true, message: "가장 작은 폰트 3가지까지 사용해보셨습니다." };
+          return { success: false, message: "h4(사과), h5(바나나), h6(딸기) 가 누락된 것이 없는지 살피세요." };
+        }
+      },
+      {
+        practiceTheory: `
+          <div class="mission-box">
+            <h3>🚀 미션 5/5: 종합 실습</h3>
+            <p>지금까지 배운 것을 총동원해 자유롭게 구조를 짭니다.</p>
+            <ul>
+              <li><code>h1</code> 태그로 메인 제목을 자유롭게 하나 적으세요.</li>
+              <li>바로 밑에 <code>h3</code> 태그로 부제목을 자유롭게 적어보세요. (h1과 h3 둘 다 존재해야 성공!)</li>
+            </ul>
+          </div>
+        `,
+        solutionCode: `<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>미션 5 종합 정답</title>
+</head>
+<body>
+    <h1>제가 좋아하는 노래</h1>
+    <h3>아이유 - 좋은 날</h3>
+</body>
+</html>`,
+        validation: function(code) {
+          if (code.includes('<h1') && code.includes('<h3')) return { success: true, message: "대단합니다! 제목 태그의 기본기를 완벽하게 다졌습니다. 🎯" };
+          return { success: false, message: "화면에 최소한 1개의 h1 태그와 1개의 h3 태그가 보여야 합니다!" };
+        }
       }
-      return { success: false, message: "태그나 텍스트에 오타가 없는지, h1과 h3를 정확히 사용했는지 다시 확인해 보세요!" };
-    }
+    ]
   },
   {
     id: "html-01-2",
@@ -1480,18 +1589,52 @@ function updatePreview() {
 // 4. 전역 상태 및 특정 강의(데이터) 로드 함수
 let isPracticeMode = false;
 let currentLectureId = "html-01-1"; // 현재 강의 기억
+let currentMissionIndex = 0;        // 다중 미션 진행 상태를 위한 인덱스
 
-function loadLecture(lectureId) {
+const missionNav = document.getElementById('missionNav');
+const prevMissionBtn = document.getElementById('prevMissionBtn');
+const nextMissionBtn = document.getElementById('nextMissionBtn');
+const missionProgress = document.getElementById('missionProgress');
+
+// 강의 로드 함수
+function loadLecture(lectureId, missionIdx = 0) {
   currentLectureId = lectureId;
+  currentMissionIndex = missionIdx;
   const lecture = htmlLectures.find(lec => lec.id === lectureId);
   if (!lecture) return;
 
   // 1) 이론/실습 영역 업데이트
   document.getElementById('theoryTitle').innerText = isPracticeMode ? '미션 가이드' : '이론 설명';
+  
   if (isPracticeMode) {
-    document.getElementById('theoryContent').innerHTML = lecture.practiceTheory || '<p>현재 강의는 실습 미션이 아직 등록되지 않았습니다.</p>';
+    // 다중 미션 배열 구조를 가지고 있는지 확인
+    const hasMultipleMissions = Array.isArray(lecture.missions) && lecture.missions.length > 0;
+    
+    let missionData;
+    if (hasMultipleMissions) {
+      missionData = lecture.missions[currentMissionIndex];
+      // 미션 네비게이션 제어
+      missionNav.style.display = 'flex';
+      missionProgress.innerText = `${currentMissionIndex + 1} / ${lecture.missions.length}`;
+      prevMissionBtn.disabled = currentMissionIndex === 0;
+      nextMissionBtn.disabled = currentMissionIndex === (lecture.missions.length - 1);
+    } else {
+      // 레거시 단일 미션 (배열 형태가 아닌 경우)
+      missionData = {
+        practiceTheory: lecture.practiceTheory,
+        solutionCode: lecture.solutionCode,
+        validation: lecture.validation
+      };
+      missionNav.style.display = 'none'; // 미션이 1개면 버튼 숨김
+    }
+
+    document.getElementById('theoryContent').innerHTML = missionData.practiceTheory || '<p>현재 강의는 실습 미션이 아직 등록되지 않았습니다.</p>';
+    
+    // 이전에 사용자가 치던 코드를 보존하려면 getValue를 쓰지만, 새로 강의/문제를 열 땐 빈 코드가 좋음
     editor.setValue('<!DOCTYPE html>\n<html lang="ko">\n<head>\n    <meta charset="UTF-8">\n    <title>실습</title>\n</head>\n<body>\n    <!-- 여기에 코드를 작성하세요 -->\n    \n</body>\n</html>');
   } else {
+    // 이론(학습) 모드
+    missionNav.style.display = 'none';
     document.getElementById('theoryContent').innerHTML = lecture.theory;
     editor.setValue(lecture.initialCode);
   }
@@ -1505,6 +1648,20 @@ function loadLecture(lectureId) {
   // 변경 후 즉시 미리보기 렌더링
   updatePreview();
 }
+
+// 4-0. 다중 미션 이전 / 다음 버튼 제어기
+prevMissionBtn.addEventListener('click', () => {
+  if (currentMissionIndex > 0) {
+    loadLecture(currentLectureId, currentMissionIndex - 1);
+  }
+});
+
+nextMissionBtn.addEventListener('click', () => {
+  const lecture = htmlLectures.find(lec => lec.id === currentLectureId);
+  if (lecture && lecture.missions && currentMissionIndex < lecture.missions.length - 1) {
+    loadLecture(currentLectureId, currentMissionIndex + 1);
+  }
+});
 
 // 4-1. 모드 전환 (이론 <-> 실습) 이벤트
 const modeToggleBtn = document.getElementById('modeToggleBtn');
@@ -1533,25 +1690,35 @@ modeToggleBtn.addEventListener('change', (e) => {
 // 4-2. 정답 보기 버튼 클릭 이벤트
 showAnswerBtn.addEventListener('click', () => {
   const lecture = htmlLectures.find(lec => lec.id === currentLectureId);
-  if (!lecture || !lecture.solutionCode) {
+  let missionData = lecture;
+  if (lecture && Array.isArray(lecture.missions)) {
+    missionData = lecture.missions[currentMissionIndex];
+  }
+
+  if (!missionData || !missionData.solutionCode) {
     alert("이 강의에는 아직 정답 코드가 등록되지 않았습니다.");
     return;
   }
   if(confirm("정답 코드를 에디터에 불러오시겠습니까? 작성 중인 코드는 사라집니다.")) {
-    editor.setValue(lecture.solutionCode);
+    editor.setValue(missionData.solutionCode);
   }
 });
 
 // 4-3. 정답 제출 버튼 클릭 이벤트
 checkAnswerBtn.addEventListener('click', () => {
   const lecture = htmlLectures.find(lec => lec.id === currentLectureId);
-  if (!lecture || !lecture.validation) {
+  let missionData = lecture;
+  if (lecture && Array.isArray(lecture.missions)) {
+    missionData = lecture.missions[currentMissionIndex];
+  }
+
+  if (!missionData || !missionData.validation) {
     alert("이 강의에는 아직 채점 로직이 등록되지 않았습니다.");
     return;
   }
   
   const userCode = editor.getValue();
-  const result = lecture.validation(userCode);
+  const result = missionData.validation(userCode);
   
   if (result.success) {
     // 폭죽 이펙트
@@ -1560,8 +1727,17 @@ checkAnswerBtn.addEventListener('click', () => {
       spread: 70,
       origin: { y: 0.6 }
     });
-    // 약간의 딜레이 후 성공 메시지
-    setTimeout(() => alert("🎉 정답입니다!\n" + result.message), 300);
+    // 다중 미션일 경우 자동 다음 단계 안내 문구 추가
+    let msg = "🎉 정답입니다!\n" + result.message;
+    if (lecture.missions && currentMissionIndex < lecture.missions.length - 1) {
+        msg += "\n\n다음 미션으로 넘어갑니다!";
+        setTimeout(() => {
+          alert(msg);
+          loadLecture(currentLectureId, currentMissionIndex + 1); // 자동 다음 미션
+        }, 300);
+    } else {
+        setTimeout(() => alert(msg), 300);
+    }
   } else {
     alert("오답입니다. ❌\n" + result.message);
   }
