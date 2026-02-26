@@ -2674,15 +2674,191 @@ const htmlLectures = [
   }
 ];
 
+// -- 자체 구현 Emmet 약어 확장기 --
+function expandEmmet(abbr) {
+  // ul>li*3 또는 div>p 등의 중첩 패턴 처리
+ function parseAbbr(text) {
+    let depth = 0;
+    let splitIdx = -1;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === '(') depth++;
+      else if (text[i] === ')') depth--;
+      else if (text[i] === '>' && depth === 0) { splitIdx = i; break; }
+    }
+
+    if (splitIdx !== -1) {
+      const parent = text.slice(0, splitIdx);
+      const child = text.slice(splitIdx + 1);
+      const childHtml = expandEmmet(child);
+      
+      const tag = resolveTag(parent);
+      const openTag = buildOpenTag(parent);
+      
+      // img, input 등 닫는 태그가 없는 요소는 자식을 품을 수 없으므로 형제처럼 나열
+      const selfClosing = ['input','br','hr','img','meta','link','area','base','col','embed','param','source','track','wbr'];
+      if (selfClosing.includes(tag)) {
+        return `${openTag}\n${childHtml}`;
+      }
+      
+      return `${openTag}\n${childHtml.split('\n').map(l => '    ' + l).join('\n')}\n</${tag}>`;
+    }
+    return buildElement(text);
+  }
+
+  function resolveTag(abbr) {
+    const m = abbr.match(/^\(?([a-z][a-z0-9]*)/i);
+    return m ? m[1] : 'div';
+  }
+
+  function buildOpenTag(abbr) {
+    // 괄호 제거
+    abbr = abbr.replace(/^\(|\)$/g, '');
+    // 곱셈 제거
+    abbr = abbr.replace(/\*\d+$/, '');
+    const tagMatch = abbr.match(/^([a-z][a-z0-9]*)/i);
+    const tag = tagMatch ? tagMatch[1] : 'div';
+    const idMatch = abbr.match(/#([a-zA-Z0-9_-]+)/);
+    const classes = [...abbr.matchAll(/\.([a-zA-Z0-9_-]+)/g)].map(m => m[1]);
+    const attrMatch = abbr.match(/\[([^\]]+)\]/);
+    const textMatch = abbr.match(/\{([^}]+)\}/);
+
+    let attrs = '';
+    if (idMatch) attrs += ` id="${idMatch[1]}"`;
+    if (classes.length) attrs += ` class="${classes.join(' ')}"`;
+    if (attrMatch) attrs += ` ${attrMatch[1]}`;
+
+    const selfClosing = ['input','br','hr','img','meta','link','area','base','col','embed','param','source','track','wbr'];
+    if (selfClosing.includes(tag)) return `<${tag}${attrs}>`;
+    return `<${tag}${attrs}>`;
+  }
+
+  function buildElement(abbr) {
+    // 곱셈 처리: li*3
+    const multMatch = abbr.match(/^(.+)\*(\d+)$/);
+    if (multMatch) {
+      const count = parseInt(multMatch[2]);
+      const single = multMatch[1];
+      return Array.from({length: count}, () => buildSingle(single)).join('\n');
+    }
+    return buildSingle(abbr);
+  }
+
+  function buildSingle(abbr) {
+    abbr = abbr.replace(/^\(|\)$/g, '');
+    const tagMatch = abbr.match(/^([a-z][a-z0-9]*)/i);
+    const tag = tagMatch ? tagMatch[1] : 'div';
+    const idMatch = abbr.match(/#([a-zA-Z0-9_-]+)/);
+    const classes = [...abbr.matchAll(/\.([a-zA-Z0-9_-]+)/g)].map(m => m[1]);
+    const attrMatch = abbr.match(/\[([^\]]+)\]/);
+    const textMatch = abbr.match(/\{([^}]+)\}/);
+
+    let attrs = '';
+    if (idMatch) attrs += ` id="${idMatch[1]}"`;
+    if (classes.length) attrs += ` class="${classes.join(' ')}"`;
+    if (attrMatch) attrs += ` ${attrMatch[1]}`;
+    const inner = textMatch ? textMatch[1] : '';
+
+    const selfClosing = ['input','br','hr','img','meta','link','area','base','col','embed','param','source','track','wbr'];
+    if (selfClosing.includes(tag)) return `<${tag}${attrs}>`;
+    return `<${tag}${attrs}>${inner}</${tag}>`;
+  }
+
+  return parseAbbr(abbr.trim());
+}
+
+// 2. CodeMirror 에디터 초기화
 // 2. CodeMirror 에디터 초기화
 const editorTextArea = document.getElementById('htmlEditor');
 const editor = CodeMirror.fromTextArea(editorTextArea, {
-  mode: 'xml',
+  mode: 'text/html',
   theme: 'dracula',
   lineNumbers: true,
   autoCloseTags: true,
   indentUnit: 4,
-  tabSize: 4
+  tabSize: 4,
+  extraKeys: {
+    "Ctrl-Space": "autocomplete",
+    
+    // 💡 보너스 기능: Shift+Tab을 누르면 문서 전체 코드를 예쁘게 자동 정렬 (Auto Format)
+    "Shift-Tab": function(cm) {
+      const totalLines = cm.lineCount();
+      for (let i = 0; i < totalLines; i++) {
+        cm.indentLine(i, "smart");
+      }
+    },
+    
+    "Tab": function(cm) {
+      // 1. 코드를 드래그로 선택한 상태에서 탭을 누르면, 해당 영역 전체를 알맞게 자동 들여쓰기
+      if (cm.somethingSelected()) {
+        cm.execCommand("indentAuto");
+        return;
+      }
+      
+      const cursor = cm.getCursor();
+      const lineText = cm.getLine(cursor.line);
+      const textBefore = lineText.slice(0, cursor.ch);
+      
+      // 2. 속성(따옴표 안) 작성 중에는 Emmet 동작 방지
+      if (/(["'])[^\1]*$/.test(textBefore)) {
+        cm.replaceSelection("    ", "end");
+        return;
+      }
+
+      const abbrMatch = textBefore.match(/([a-zA-Z0-9!#.\[\]{}()>*"=^\-_]+)$/);
+
+      // 3. Emmet 약어가 매칭될 경우
+      if (abbrMatch) {
+        const abbr = abbrMatch[1];
+        
+        // HTML5 기본 템플릿 (!)
+        if (abbr === '!') {
+          const template = `<!DOCTYPE html>\n<html lang="ko">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Document</title>\n</head>\n<body>\n    \n</body>\n</html>`;
+          const from = { line: cursor.line, ch: cursor.ch - abbr.length };
+          cm.replaceRange(template, from, cursor);
+          
+          // [핵심] 생성된 템플릿 코드들을 한 줄씩 돌아가며 HTML 구조에 맞게 자동 정렬
+          const toLine = cm.getCursor().line;
+          for(let i = from.line; i <= toLine; i++) {
+            cm.indentLine(i, "smart");
+          }
+          return;
+        }
+        
+        // 일반 태그 및 구조 약어 전개
+        if (/[a-zA-Z>.*#\[{]/.test(abbr)) {
+          try {
+            const expanded = expandEmmet(abbr);
+            if (expanded !== abbr) { 
+              const from = { line: cursor.line, ch: cursor.ch - abbr.length };
+              cm.replaceRange(expanded, from, cursor);
+              
+              // [핵심] Emmet으로 생성된 코드 블록의 들여쓰기를 부모 태그 계층에 맞게 자동 맞춤
+              const toLine = cm.getCursor().line;
+              for(let i = from.line; i <= toLine; i++) {
+                cm.indentLine(i, "smart");
+              }
+              return;
+            }
+          } catch(e) { console.error("Emmet parsing error:", e); }
+        }
+      }
+      
+      // 4. Emmet 확장 대상이 아닐 때의 똑똑한 Tab 키 동작
+      if (textBefore.trim() === "") {
+        // 커서 앞이 비어있는 줄에서 탭을 누르면 -> 무조건 올바른 들여쓰기 위치로 커서 찰칵!
+        cm.indentLine(cursor.line, "smart");
+      } else {
+        // 코드 뒤쪽에서 탭을 누르면 -> 일반적인 4칸 띄어쓰기
+        cm.replaceSelection("    ", "end");
+      }
+    }
+  }
+});
+// 자동완성 자동 트리거 (태그 시작 시에만 힌트 창 표시하여 Emmet과 충돌 방지)
+editor.on("inputRead", function(cm, change) {
+  if (change.origin !== "paste" && change.text[0] === '<') {
+    cm.showHint({ completeSingle: false });
+  }
 });
 
 // 3. Iframe 미리보기 렌더링 함수
