@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>HTML 기초</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- CodeMirror CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+</head>
+
+<body>
+
+  <header>
+    <button id="menuOpenBtn" class="hamburger-btn">☰</button>
+    <h1>🎓 HTML 기초</h1>
+  </header>
+
+  <!-- 배경 오버레이 (사이드바 열렸을 때 뒷배경 어둡게) -->
+
+
+  <!-- 왼쪽: 목차 (사이드바 - 이제 플로팅으로 띄움) -->
+  <main class="container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>📚 목차 (HTML)</h2>
+        <button id="menuCloseBtn" class="toggle-btn" title="목차 닫기">✖</button>
+      </div>
+      <ul id="lessonList" class="lesson-list">
+        <!-- JS로 동적 생성될 리스트 -->
+      </ul>
+    </aside>
+
+    <!-- 중앙-왼쪽: 이론 설명 영역 -->
+    <section class="panel theory-panel">
+      <h2 id="theoryTitle">이론 설명</h2>
+      <div id="theoryContent" class="theory-content">
+        <!-- JS로 동적 렌더링될 영역 -->
+      </div>
+    </section>
+
+    <!-- 중앙-오른쪽: 코드 에디터 영역 -->
+    <section class="panel editor-panel">
+      <div class="panel-header">
+        <h2>📝 실습 에디터 (HTML)</h2>
+        <button id="copyCodeBtn" class="action-btn">📋 코드 복사</button>
+      </div>
+      <textarea id="htmlEditor"></textarea>
+    </section>
+
+    <!-- 가장 우측: 실시간 미리보기 영역 -->
+    <section class="panel preview-panel">
+      <h2>👀 결과 화면</h2>
+      <div class="iframe-container">
+        <iframe id="previewIframe" title="Live Preview"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <!-- CodeMirror JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"></script>
+  <!-- 커스텀 JS -->
+  <script src="script.js"></script>
+</body>
+
+</html>
